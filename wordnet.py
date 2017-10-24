@@ -18,12 +18,12 @@ class IndexHandler(tornado.web.RequestHandler):
 
 
 class NormHandler(tornado.web.RequestHandler):
-	def post(self):
-        data = self.get_argument()
-        cols = data['cols']
-        fds = data['fds']
-        s = getBCNF(cols, fds)
-        self.write({'data': s})    	
+	def get(self):
+        data = self.get_argument('data')
+        # cols = data['cols']
+        # fds = data['fds']
+        # s = getBCNF(cols, fds)
+        self.write({'data': data})    	
 
 
 if __name__ == "__main__":
