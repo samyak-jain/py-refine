@@ -18,8 +18,8 @@ class IndexHandler(tornado.web.RequestHandler):
 
 
 class NormHandler(tornado.web.RequestHandler):
-	def get(self):
-        data = tornado.escape.json_decode(self.request.body)
+	def post(self):
+        data = self.get_argument()
         cols = data['cols']
         fds = data['fds']
         s = getBCNF(cols, fds)
