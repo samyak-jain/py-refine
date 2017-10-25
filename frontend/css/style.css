@@ -1,3 +1,7 @@
+.hide2 {
+  display: none;
+}
+
 .table-editable {
   position: relative;
 }
@@ -12,6 +16,9 @@
 }
 #tt th:nth-child(2){
   width: 250px;
+}
+.fixed-header-table{
+  width:250px;
 }
 #ta1 .swap-td{
   display: none;

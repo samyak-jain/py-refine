@@ -38,6 +38,7 @@ function getdet() {
 
   colslist.splice(-2,2);
   myRows.splice(0,1);
+  myRows.splice(1,1);
 
   // Let's put this in the object like you want and convert to JSON (Note: jQuery will also do this for you on the Ajax request)
   var myObj = {
@@ -60,7 +61,7 @@ $(document).ready(function() {
       swap($(this).parent().parent());
   });
   $('.table-add#t2').click(function () {
-    var $clone = $TABLE.find('tr.hide').clone(true).removeClass('hide table-line');
+    var $clone = $("#ta2").find('tr.hide2').clone(true).removeClass('hide2 table-line');
     $('#ta2').append($clone);
   });
 
@@ -91,21 +92,46 @@ $(document).ready(function() {
 
   $('#norm').click(function() {
     tosend = getdet();
-    response = ""
+    console.log(tosend);
+    resp = "";
     // console.log(tosend);
     $.ajax({
         contentType: 'application/json',
         crossDomain: true,
         type: 'GET',
-        url: "http://localhost:8000/norm?data=" + tosend,
+        url: "https://radiant-temple-63114.herokuapp.com/norm?data=" + tosend,
         // success: function(text) {
         //   response = text;
         // }
     }).done(function(data, textStatus, jqXHR){
         // console.log(data);
-        resp = jqXHR.responseText;
-        console.log(resp);
+        
+        resp = $.parseJSON(jqXHR.responseText);
+        // console.log(resp);
+        rels = resp['data'];
+        // s = "";
+        console.log(rels);
+        for (var i = 0; i<rels.length; i++) {
+          var $outer_temp=$(`<p class="new-tab">R${i}:</p> 
+          <table class="table new-tab">
+      <tr class="header-table">
+            </tr>
+    </table>
+        `),inner_temp='';
+          for (var j = 0; j<rels[i].length; j++) {
+            inner_temp+=`
+              <th class='fixed-header-table'>${rels[i][j]}</th>
+            `;
+          }
+          console.log('inner - ',inner_temp);
+          $outer_temp.find('.header-table').html($(inner_temp));
+          $('#output').append($outer_temp);
+        }
   });;
      // console.log(resp);
+  });
+
+  $('#clear').click(function() {
+    $('.new-tab').remove();
   });
 });
