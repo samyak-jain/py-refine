@@ -6,6 +6,7 @@ import tornado.httpserver
 import tornado.ioloop
 import tornado.options
 import tornado.web
+import json
 
 from bcnf import getBCNF
 from tornado.options import define, options
@@ -18,12 +19,37 @@ class IndexHandler(tornado.web.RequestHandler):
 
 
 class NormHandler(tornado.web.RequestHandler):
+    def set_default_headers(self):
+        print("setting headers!!!")
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.set_header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
+        self.set_header('Access-Control-Allow-Methods', ' PUT, DELETE, OPTIONS')
+
     def get(self):
-        data = self.get_argument('data')
-        # cols = data['cols']
-        # fds = data['fds']
-        # s = getBCNF(cols, fds)
-        self.write({'data': data})    	
+        data = json.loads(self.get_argument('data'))
+        cols = data['cols']
+        for i in range(len(cols)):
+            cols[i] = cols[i].replace('\xa0', '')
+        rows = data['myrows']
+        fds = {}
+        for i in rows:
+            x = i.get('LHS').split(',')
+            for abc in range(len(x)):
+                x[abc] = x[abc].replace('\xa0', '')
+            y = i.get('RHS').split(',')
+            for abc in range(len(y)):
+                y[abc] = y[abc].replace('\xa0', '')
+            fds[tuple(x)] = y
+
+        print(cols, fds)
+
+        s = getBCNF(cols, fds)
+        self.write({'data': s})
+
+    def options(self):
+        # no body
+        self.set_status(204)
+        self.finish()
 
 
 if __name__ == "__main__":

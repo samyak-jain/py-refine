@@ -33,7 +33,7 @@ function getdet() {
 
   var colslist = [];
   $('#ta1 th').each(function(index) {
-    colslist[index] = $(this).text().split(' -')[0];
+    colslist[index] = $(this).text();
   });
 
   colslist.splice(-2,2);

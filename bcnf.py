@@ -22,7 +22,11 @@ def attr_closure(i, f):
 
 def superkey(r, attr, fd):
     cf = attr_closure(attr, fd)
-    return set(cf[attr] | set(attr)) == set(r)
+    # print(cf,attr,fd)
+    fin = set(attr)
+    if cf.get(attr) is not None:
+        fin = fin | cf.get(attr)
+    return set(fin) == set(r)
 
 
 def bcnf(r, fd):
@@ -61,8 +65,9 @@ def canon(f):
 
 
 def getBCNF(rstr, fdstr):
-    R = {i for i in rstr.split()}
-    FD = {}
+    R = set(rstr)
+    FD = fdstr
+    # print(R, FD)
     S = [R]
     FD = canon(FD)
 
@@ -73,4 +78,5 @@ def getBCNF(rstr, fdstr):
         if len(S[0]) < 2:
             S.pop(0)
 
+    S = list(map(list, S))
     return S
