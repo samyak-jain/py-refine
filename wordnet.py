@@ -14,11 +14,11 @@ define("port", default=8000, help="runs on the given port", type=int)
 
 class IndexHandler(tornado.web.RequestHandler):
     def get(self):
-    	URL = "http://ws4jdemo.appspot.com/?mode=w&s1=&w1=name%23n%231&s2=&w2=doctor%23n%231"
+        URL = "http://ws4jdemo.appspot.com/?mode=w&s1=&w1=name%23n%231&s2=&w2=doctor%23n%231"
 
 
 class NormHandler(tornado.web.RequestHandler):
-	def get(self):
+    def get(self):
         data = self.get_argument('data')
         # cols = data['cols']
         # fds = data['fds']
@@ -36,4 +36,4 @@ if __name__ == "__main__":
     )
     http_server = tornado.httpserver.HTTPServer(app)
     http_server.listen(os.environ.get("PORT",options.port))
-    tornado.ioloop.IOLoop.instance().start(
+    tornado.ioloop.IOLoop.instance().start()
