@@ -99,7 +99,7 @@ $(document).ready(function() {
         contentType: 'application/json',
         crossDomain: true,
         type: 'GET',
-        url: "https://radiant-temple-63114.herokuapp.com/norm?data=" + tosend,
+        url: "http://localhost:8000/norm?data=" + tosend,
         // success: function(text) {
         //   response = text;
         // }
@@ -113,7 +113,7 @@ $(document).ready(function() {
         console.log(rels);
         for (var i = 0; i<rels.length; i++) {
           var $outer_temp=$(`<p class="new-tab">R${i}:</p> 
-          <table class="table new-tab">
+          <table class="table new-tab${i}">
       <tr class="header-table">
             </tr>
     </table>
@@ -126,6 +126,7 @@ $(document).ready(function() {
           console.log('inner - ',inner_temp);
           $outer_temp.find('.header-table').html($(inner_temp));
           $('#output').append($outer_temp);
+
         }
   });;
      // console.log(resp);

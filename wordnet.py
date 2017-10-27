@@ -15,7 +15,7 @@ define("port", default=8000, help="runs on the given port", type=int)
 
 class IndexHandler(tornado.web.RequestHandler):
     def get(self):
-        URL = "http://ws4jdemo.appspot.com/?mode=w&s1=&w1=name%23n%231&s2=&w2=doctor%23n%231"
+        pass
 
 
 class NormHandler(tornado.web.RequestHandler):
