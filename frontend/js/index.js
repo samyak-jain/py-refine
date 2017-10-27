@@ -113,7 +113,7 @@ $(document).ready(function() {
         console.log(rels);
         for (var i = 0; i<rels.length; i++) {
           var $outer_temp=$(`<p class="new-tab">R${i}:</p> 
-          <table class="table new-tab${i}">
+          <table class="table new-tab">
       <tr class="header-table">
             </tr>
     </table>
